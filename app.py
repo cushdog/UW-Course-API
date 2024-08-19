@@ -1,12 +1,7 @@
-from botocore.exceptions import ClientError
 from flask import Flask, request, jsonify
-from bs4 import BeautifulSoup
 from flask_cors import CORS
-import requests
 import sqlite3
-import boto3
 import json
-import uuid
 import os
 
 app = Flask(__name__)
