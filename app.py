@@ -43,7 +43,7 @@ def pull_from_table_sections(course_title):
     conn.close()
     if not results:
         return "Course not found"
-    return results[0]
+    return results
 
 @app.route('/search-catalog', methods=['GET'])
 def search():
@@ -55,7 +55,15 @@ def search():
     
     return jsonify(pull_from_table_catalog(course_title))
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+@app.route('/search-sections', methods=['GET'])
+def search():
+    query = request.args.get('query')
+    words = query.split()
+    
+    class_name, course_number = words[0].upper(), words[1]
+    course_title = class_name + " " + course_number
+    
+    return jsonify(pull_from_table_sections(course_title))
 
-print(pull_from_table_sections("MATH 102"))
+if __name__ == '__main__':
+    app.run(debug=True)
