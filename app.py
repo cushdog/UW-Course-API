@@ -37,8 +37,8 @@ def pull_from_table_catalog(course_title):
 def pull_from_table_sections(course_title):
     conn = get_sections_db_connection()
     cursor = conn.cursor()
-    query = "SELECT * FROM courses WHERE subject = ? AND course_number = ? AND semester = ? AND year = ?;"
-    cursor.execute(query, (course_title,))
+    query = "SELECT * FROM courses WHERE course_name LIKE ?;"
+    cursor.execute(query, ('%' + course_title + '%',))
     results = cursor.fetchall()
     conn.close()
     if not results:
@@ -55,5 +55,7 @@ def search():
     
     return jsonify(pull_from_table_catalog(course_title))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+print(pull_from_table_sections("MATH 102"))
