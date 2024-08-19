@@ -45,25 +45,23 @@ def pull_from_table_sections(course_title):
         return "Course not found"
     return results
 
-@app.route('/search-catalog', methods=['GET'])
+@app.route('/search', methods=['GET'])
 def search():
-    query = request.args.get('query')
-    words = query.split()
-    
-    class_name, course_number = words[0].upper(), words[1]
-    course_title = class_name + " " + course_number
-    
-    return jsonify(pull_from_table_catalog(course_title))
 
-@app.route('/search-sections', methods=['GET'])
-def search():
     query = request.args.get('query')
     words = query.split()
     
     class_name, course_number = words[0].upper(), words[1]
     course_title = class_name + " " + course_number
-    
-    return jsonify(pull_from_table_sections(course_title))
+
+    catalog_results = jsonify(pull_from_table_catalog(course_title))
+    sections_results = jsonify(pull_from_table_sections(course_title))
+
+    return jsonify({
+        "catalog": catalog_results,
+        "sections": sections_results
+    })
+
 
 if __name__ == '__main__':
     app.run(debug=True)
