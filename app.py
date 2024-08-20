@@ -33,7 +33,7 @@ def subject_pull_from_table(subject):
     conn.close()
     if not results:
         return "Course not found"
-    return results[0]
+    return results
 
 @app.route('/search', methods=['GET'])
 def search():
