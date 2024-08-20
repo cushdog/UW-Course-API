@@ -49,7 +49,7 @@ def search():
     return jsonify(results)
 
 @app.route('/subject-search', methods=['GET'])
-def search():
+def subjectSearch():
 
     query = request.args.get('query')
     words = query.split()
