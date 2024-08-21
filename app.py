@@ -146,6 +146,27 @@ def subjectSearch():
 
     return jsonify(results)
 
+@app.route('/prof-search', methods=['GET'])
+def profSearch():
+
+    query = request.args.get('query')
+    words = query.split()
+    
+    prof_name = words[0] + " " + words[1]
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = "SELECT * FROM courses WHERE sections LIKE ?;"
+    cursor.execute(query, ('%' + prof_name + '%',))
+    results = cursor.fetchall()
+    conn.close()
+
+    for result in results:
+        temp = clean_db_row(result)
+        result = temp
+
+    return jsonify(results)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
