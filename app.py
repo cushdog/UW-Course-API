@@ -6,7 +6,7 @@ import os
 import re
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://course-explorer-electric-boogaloo.vercel.app"]}})
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://course-explorer-electric-boogaloo.vercel.app", "https://course-explorer-electric-boogaloo1234567890098765434567890.vercel.app"]}})
 
 DATABASE = 'courses.db'
 
